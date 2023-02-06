@@ -81,26 +81,3 @@ def question():
         print("Example: portfolio.txt, portfolio2.txt")
 
 question()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
