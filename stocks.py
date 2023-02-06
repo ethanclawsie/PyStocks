@@ -1,4 +1,5 @@
 import yfinance as yf
+import matplotlib.pyplot as plt
 
 stocks = []
 stockstwo = []
@@ -9,7 +10,15 @@ class stock:
         self.shares = shares
         self.price = price
         self.date = date
-
+        
+    def plotStocks(self):
+        stock = yf.Ticker(self.ticker)
+        data = stock.history(period="1y")
+        data["Close"].plot(title=self.ticker)
+        plt.xlabel("Date")
+        plt.ylabel("Close Price")
+        plt.show()
+        
     def getValue(self):
         stock = yf.Ticker(self.ticker)
         data = stock.history(period="1d")
@@ -32,6 +41,7 @@ def printPortfolio(stocks):
         stocks.append(stock(ticker, float(shares), float(price), date))
     for i in stocks:
         print("Ticker:",i.ticker, "Shares:",i.shares, "Price:",i.price, "Date:",i.date, i.getValue(), i.getPercentChange())
+        i.plotStocks()
 
 def compare(stocks, stockstwo):
     filename = input("Enter the name of your txt file: ")
