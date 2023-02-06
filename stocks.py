@@ -11,13 +11,17 @@ class stock:
         self.date = date
 
     def getValue(self):
-        pricefirst = yf.Ticker(self.ticker)
-        rounding = (pricefirst.info['regularMarketPrice'] * self.shares)
+        stock = yf.Ticker(self.ticker)
+        data = stock.history(period="1d")
+        price = data["Close"][-1]
+        rounding = price * self.shares
         return("Value",round(rounding, 2))
 
     def getPercentChange(self):
-        pricefirst = yf.Ticker(self.ticker)
-        rounding = ((pricefirst.info['regularMarketPrice'] - self.price) / self.price)
+        stock = yf.Ticker(self.ticker)
+        data = stock.history(period="1d")
+        price = data["Close"][-1]
+        rounding = ((price - self.price)/self.price)*100
         return("%",round(rounding, 2))
 
 def printPortfolio(stocks):
@@ -63,6 +67,8 @@ def question():
         print("Date is in the format of yyyy-mm-dd")
         print("Example: AAPL,10,100,2020-01-01")
         print("You can add as many stocks as you want, just make sure to add a new line for each stock")
+        print("You can also compare two portfolios by entering the name of the txt file you want to compare against")
+        print("Example: portfolio.txt, portfolio2.txt")
 
 question()
 
